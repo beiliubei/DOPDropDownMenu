@@ -34,10 +34,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RLW-9E-dgY" customClass="DOPDropDownMenu">
-                                <rect key="frame" x="0.0" y="64" width="320" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLW-9E-dgY" customClass="DOPDropDownMenu">
+                                <rect key="frame" x="0.0" y="64" width="320" height="42"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="dgl-5X-bAB"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="se0-cM-cCh"/>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="CmB-Qc-ZVu"/>
@@ -46,6 +49,11 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RLW-9E-dgY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="4QK-TS-FWn"/>
+                            <constraint firstItem="RLW-9E-dgY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Yib-8N-Otu"/>
+                            <constraint firstAttribute="trailing" secondItem="RLW-9E-dgY" secondAttribute="trailing" id="pwL-Fx-Hj3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X1j-ib-lQx">
                         <barButtonItem key="rightBarButtonItem" title="add" id="p0N-oz-gEx">

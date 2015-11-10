@@ -38,14 +38,15 @@
     self.hostels = @[@"经济酒店",@"商务酒店",@"连锁酒店",@"度假酒店",@"公寓酒店"];
     self.areas = [NSMutableArray arrayWithObjects:@"全城",@"芙蓉区",@"雨花区",@"天心区",@"开福区",@"岳麓区", nil];
     self.sorts = @[@"默认排序",@"离我最近",@"好评优先",@"人气优先",@"最新发布"];
-    
+    _menu.fontSize = 12;
+    _menu.textSelectedColor = [UIColor yellowColor];
     [_menu reloadData];
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu
 {
     
-    return 3;
+    return 2;
     
 }
 
@@ -170,5 +171,19 @@
     }
     
 }
-
+//
+//- (CAShapeLayer *)menu:(DOPDropDownMenu *)menu titleIndicatorViewForRowAtColumn:(NSInteger)column
+//{
+//    CAShapeLayer *layer = [CAShapeLayer new];
+//    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+//    [bezierPath moveToPoint: CGPointMake(86.5, 11.5)];
+//    [bezierPath addLineToPoint: CGPointMake(94.24, 20.5)];
+//    [bezierPath addLineToPoint: CGPointMake(100.5, 11.5)];
+//    [UIColor.blackColor setStroke];
+//    bezierPath.lineWidth = 1;
+//    [bezierPath stroke];
+//    layer.path = bezierPath.CGPath;
+//    return layer;
+//    
+//}
 @end

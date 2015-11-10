@@ -43,6 +43,12 @@
 
 @optional
 /**
+ * 返回默认的第一行的title view
+ */
+- (CATextLayer *)menu:(DOPDropDownMenu *)menu titleViewForRowAtColumn:(NSInteger)column;
+
+- (CAShapeLayer *)menu:(DOPDropDownMenu *)menu titleIndicatorViewForRowAtColumn:(NSInteger)column;
+/**
  *  返回 menu 有多少列 ，默认1列
  */
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu;

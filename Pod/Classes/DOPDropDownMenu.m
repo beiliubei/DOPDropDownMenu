@@ -13,28 +13,21 @@
 
 - (instancetype)initWithColumn:(NSInteger)column row:(NSInteger)row
 {
-    
     self = [super init];
     if (self) {
-        
         _column = column;
         _row = row;
         _item = -1;
-        
     }
-    
     return self;
     
 }
 
 - (instancetype)initWithColumn:(NSInteger)column row:(NSInteger)row tem:(NSInteger)item
 {
-    
     self = [self initWithColumn:column row:row];
     if (self) {
-        
         _item = item;
-        
     }
     return self;
     
@@ -42,17 +35,13 @@
 
 + (instancetype)indexPathWithCol:(NSInteger)col row:(NSInteger)row
 {
-    
     DOPIndexPath *indexPath = [[self alloc] initWithColumn:col row:row];
     return indexPath;
-    
 }
 
 + (instancetype)indexPathWithCol:(NSInteger)col row:(NSInteger)row item:(NSInteger)item
 {
-    
     return [[self alloc]initWithColumn:col row:row tem:item];
-    
 }
 
 @end
@@ -61,7 +50,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -72,7 +60,6 @@
     CGContextMoveToPoint(context, 0, rect.size.height);
     CGContextAddLineToPoint(context, rect.size.width,rect.size.height);
     CGContextStrokePath(context);
-    
 }
 
 @end
@@ -80,17 +67,13 @@
 #pragma mark - menu implementation
 
 @interface DOPDropDownMenu (){
-    
     struct
     {
-        
         unsigned int numberOfRowsInColumn :1;
         unsigned int numberOfItemsInRow :1;
         unsigned int titleForRowAtIndexPath :1;
         unsigned int titleForItemsInRowAtIndexPath :1;
-        
     }_dataSourceFlags;
-    
 }
 
 @property (nonatomic, assign) NSInteger currentSelectedMenudIndex;  // 当前选中列
@@ -111,7 +94,6 @@
 @property (nonatomic, copy) NSArray *titles;
 @property (nonatomic, copy) NSArray *indicators;
 @property (nonatomic, copy) NSArray *bgLayers;
-
 @end
 
 #define kTableViewCellHeight 43
@@ -127,56 +109,45 @@
 #pragma mark - getter
 - (UIColor *)indicatorColor
 {
-    
     if (!_indicatorColor) {
-        
         _indicatorColor = [UIColor blackColor];
-        
     }
-    
     return _indicatorColor;
-    
 }
 
 - (UIColor *)textColor
 {
-    
     if (!_textColor) {
-        
         _textColor = [UIColor blackColor];
-        
     }
-    
     return _textColor;
-    
 }
 
 - (UIColor *)separatorColor
 {
-    
     if (!_separatorColor) {
-        
         _separatorColor = [UIColor blackColor];
-        
     }
     return _separatorColor;
-    
+}
+
+//
+- (void)setTextSelectedColor:(UIColor *)textSelectedColor
+{
+    _textSelectedColor = textSelectedColor;
 }
 
 - (NSString *)titleForRowAtIndexPath:(DOPIndexPath *)indexPath
 {
-    
     return [self.dataSource menu:self titleForRowAtIndexPath:indexPath];
-    
 }
 
 - (void)selectDefalutIndexPath
 {
-    
     if (_dataSource &&
         _delegate &&
         [_delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
-        
+
         if (!_isClickHaveItemValid &&_dataSourceFlags.numberOfItemsInRow
             && [_dataSource menu:self numberOfItemsInRow:0 column:0] > 0) {
             
@@ -195,11 +166,8 @@
 #pragma mark - setter
 - (void)setDataSource:(id<DOPDropDownMenuDataSource>)dataSource
 {
-    
     if (_dataSource == dataSource) {
-        
         return;
-        
     }
     
     _dataSource = dataSource;
@@ -210,9 +178,7 @@
         _numOfMenu = [_dataSource numberOfColumnsInMenu:self];
         
     } else {
-        
         _numOfMenu = 1;
-        
     }
     
     _dataSourceFlags.numberOfRowsInColumn = [_dataSource respondsToSelector:@selector(menu:numberOfRowsInColumn:)];
@@ -221,9 +187,9 @@
     _dataSourceFlags.titleForItemsInRowAtIndexPath = [_dataSource respondsToSelector:@selector(menu:titleForItemsInRowAtIndexPath:)];
     
     _bottomShadow.hidden = NO;
-    CGFloat textLayerInterval = self.frame.size.width / ( _numOfMenu * 2);
-    CGFloat separatorLineInterval = self.frame.size.width / _numOfMenu;
-    CGFloat bgLayerInterval = self.frame.size.width / _numOfMenu;
+    CGFloat textLayerInterval = [[UIScreen mainScreen] bounds].size.width / ( _numOfMenu * 2);
+    CGFloat separatorLineInterval = [[UIScreen mainScreen] bounds].size.width / _numOfMenu;
+    CGFloat bgLayerInterval = [[UIScreen mainScreen] bounds].size.width / _numOfMenu;
     
     NSMutableArray *tempTitles = [[NSMutableArray alloc] initWithCapacity:_numOfMenu];
     NSMutableArray *tempIndicators = [[NSMutableArray alloc] initWithCapacity:_numOfMenu];
@@ -245,39 +211,44 @@
             _dataSourceFlags.numberOfItemsInRow &&
             [_dataSource menu:self numberOfItemsInRow:0 column:i]>0) {
             
-            
             titleString = [_dataSource menu:self titleForItemsInRowAtIndexPath:[DOPIndexPath indexPathWithCol:i row:0 item:0]];
             
         } else {
             
             titleString =[_dataSource menu:self titleForRowAtIndexPath:[DOPIndexPath indexPathWithCol:i row:0]];
-            
         }
+        CATextLayer *title;
 
-        CATextLayer *title = [self createTextLayerWithNSString:titleString withColor:self.textColor andPosition:titlePosition];
+        if (_dataSource && [_dataSource respondsToSelector:@selector(menu:titleViewForRowAtColumn:)]) {
+            title = [_dataSource menu:self titleViewForRowAtColumn:i];
+        }else{
+            title = [self createTextLayerWithNSString:titleString withColor:self.textColor andPosition:titlePosition];;
+        }
+        
         [self.layer addSublayer:title];
         [tempTitles addObject:title];
         
         //indicator
-        CAShapeLayer *indicator = [self createIndicatorWithColor:self.indicatorColor andPosition:CGPointMake((i + 1)*separatorLineInterval - 10, self.frame.size.height / 2)];
+        CAShapeLayer *indicator;
+        if (_dataSource && [_dataSource respondsToSelector:@selector(menu:titleIndicatorViewForRowAtColumn:)]) {
+            indicator = [_dataSource menu:self titleIndicatorViewForRowAtColumn:i];
+        }else{
+            indicator = [self createIndicatorWithColor:self.indicatorColor andPosition:CGPointMake((i + 1)*separatorLineInterval - 10, self.frame.size.height / 2)];
+        }
+        
         [self.layer addSublayer:indicator];
         [tempIndicators addObject:indicator];
         
         //separator
         if (i != _numOfMenu - 1) {
-            
             CGPoint separatorPosition = CGPointMake(ceilf((i + 1) * separatorLineInterval-1), self.frame.size.height / 2);
             CAShapeLayer *separator = [self createSeparatorLineWithColor:self.separatorColor andPosition:separatorPosition];
             [self.layer addSublayer:separator];
-            
         }
-
     }
-    
     _titles = [tempTitles copy];
     _indicators = [tempIndicators copy];
     _bgLayers = [tempBgLayers copy];
-    
 }
 
 #pragma mark - init method
@@ -425,7 +396,7 @@
     layer.foregroundColor = color.CGColor;
     
     layer.contentsScale = [[UIScreen mainScreen] scale];
-    
+
     layer.position = point;
     
     return layer;
@@ -775,9 +746,8 @@
         DOPBackgroundCellView *bg = [[DOPBackgroundCellView alloc] init];
         bg.backgroundColor = [UIColor whiteColor];
         cell.selectedBackgroundView = bg;
-        cell.textLabel.highlightedTextColor = kTextSelectColor;
-        cell.textLabel.textColor = kTextColor;
-        
+        cell.textLabel.highlightedTextColor = _textSelectedColor;
+        cell.textLabel.textColor = _textColor;
     }
     
     NSAssert(_dataSource != nil, @"menu's datasource shouldn't be nil");

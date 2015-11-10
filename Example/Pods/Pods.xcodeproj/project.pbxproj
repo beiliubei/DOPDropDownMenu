@@ -301,6 +301,7 @@
 		8308F07A55909BD5DE748AD0 /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
 		840B112494DFEE0016D780EE /* EXPMatchers+beSubclassOf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beSubclassOf.h"; path = "Expecta/Matchers/EXPMatchers+beSubclassOf.h"; sourceTree = "<group>"; };
 		896DFE72815EE57D98FB5ADF /* libPods-DOPDropDownMenu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DOPDropDownMenu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AA4C6761BF2303B0098384E /* dropdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropdown@3x.png"; path = "../../../../../../Desktop/dropdown@3x.png"; sourceTree = "<group>"; };
 		8C07E15BD4211BB82AE57B0E /* EXPMatchers+beKindOf.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beKindOf.m"; path = "Expecta/Matchers/EXPMatchers+beKindOf.m"; sourceTree = "<group>"; };
 		8C601C2B46402394E954C4C2 /* EXPMatchers+beIdenticalTo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beIdenticalTo.m"; path = "Expecta/Matchers/EXPMatchers+beIdenticalTo.m"; sourceTree = "<group>"; };
 		8CD3712ADF8EE12EC45A723A /* EXPMatchers+beginWith.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+beginWith.m"; path = "Expecta/Matchers/EXPMatchers+beginWith.m"; sourceTree = "<group>"; };
@@ -538,6 +539,7 @@
 		55627D46FF966D976D130D38 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8AA4C6761BF2303B0098384E /* dropdown@3x.png */,
 				ED5F65410B83DBD00B3A6558 /* icon_chose_arrow_nor@2x.png */,
 				940E71B03C10CFA2F2EE9715 /* icon_chose_arrow_sel@2x.png */,
 				E96C523321FF1C390845875A /* icon_chose_bottom@2x.png */,
