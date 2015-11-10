@@ -11,7 +11,7 @@
 
 @interface YSMViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate>
 
-@property (nonatomic,strong) DOPDropDownMenu *menu;
+@property (nonatomic, weak) IBOutlet DOPDropDownMenu *menu;
 @property (nonatomic, strong) NSArray *classifys;
 @property (nonatomic, strong) NSArray *cates;
 @property (nonatomic, strong) NSArray *movices;
@@ -39,13 +39,7 @@
     self.areas = [NSMutableArray arrayWithObjects:@"全城",@"芙蓉区",@"雨花区",@"天心区",@"开福区",@"岳麓区", nil];
     self.sorts = @[@"默认排序",@"离我最近",@"好评优先",@"人气优先",@"最新发布"];
     
-    // 添加下拉菜单
-    self.menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
-    
-    self.menu.delegate = self;
-    self.menu.dataSource = self;
-    [self.view addSubview:self.menu];
-    
+    [_menu reloadData];
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu

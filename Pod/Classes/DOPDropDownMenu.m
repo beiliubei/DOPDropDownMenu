@@ -342,6 +342,15 @@
     
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self = [self initWithOrigin:self.frame.origin andHeight:self.frame.size.height];
+    }
+    return self;
+}
+
 #pragma mark - init support
 - (CALayer *)createBgLayerWithColor:(UIColor *)color andPosition:(CGPoint)position
 {
